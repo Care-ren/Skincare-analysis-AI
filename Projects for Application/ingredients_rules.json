@@ -1,0 +1,117 @@
+{
+  "concerns": {
+    "acne": {
+      "recommended": [
+        "salicylic acid",
+        "betaine salicylate",
+        "niacinamide",
+        "zinc pca",
+        "azelaic acid",
+        "sulfur",
+        "retinol",
+        "adapalene",
+        "tea tree"
+      ],
+      "avoid": [
+        "coconut oil",
+        "isopropyl myristate"
+      ],
+      "notes": "Akne/utbrudd: se etter BHA/niacinamide/zinc. Start rolig hvis sensitiv."
+    },
+    "clogged_pores": {
+      "recommended": [
+        "salicylic acid",
+        "betaine salicylate",
+        "lactic acid",
+        "glycolic acid",
+        "gluconolactone",
+        "pha",
+        "clay",
+        "kaolin",
+        "charcoal"
+      ],
+      "avoid": [
+        "coconut oil",
+        "isopropyl myristate"
+      ],
+      "notes": "Tette porer/blackheads: BHA + mild eksfoliering + leire kan hjelpe."
+    },
+    "dryness": {
+      "recommended": [
+        "glycerin",
+        "hyaluronic acid",
+        "sodium hyaluronate",
+        "panthenol",
+        "ceramide",
+        "cholesterol",
+        "squalane",
+        "betaine",
+        "urea",
+        "she a butter",
+        "shea butter"
+      ],
+      "avoid": [
+        "alcohol denat"
+      ],
+      "notes": "Tørrhet: fokuser på fukt + barrierestøtte (ceramider/fettsyrer)."
+    },
+    "redness_sensitivity": {
+      "recommended": [
+        "centella",
+        "centella asiatica",
+        "madecassoside",
+        "panthenol",
+        "allantoin",
+        "beta-glucan",
+        "ceramide"
+      ],
+      "avoid": [
+        "fragrance",
+        "parfum",
+        "essential oil",
+        "lavender",
+        "citrus",
+        "peppermint",
+        "alcohol denat"
+      ],
+      "notes": "Rødhet/sensitivitet: se etter beroligende + barrierestøtte. Unngå parfyme hvis du reagerer."
+    },
+    "hyperpigmentation": {
+      "recommended": [
+        "niacinamide",
+        "vitamin c",
+        "ascorbic acid",
+        "alpha arbutin",
+        "tranexamic acid",
+        "azelaic acid",
+        "licorice"
+      ],
+      "avoid": [],
+      "notes": "Pigment/ujevn tone: se etter niacinamide/Vit C/arbutin. Bruk alltid solkrem."
+    },
+    "texture": {
+      "recommended": [
+        "lactic acid",
+        "glycolic acid",
+        "pha",
+        "gluconolactone",
+        "retinol",
+        "bakuchiol"
+      ],
+      "avoid": [],
+      "notes": "Tekstur/ru hud: mild syre/retinoid kan hjelpe. Start langsomt."
+    }
+  },
+  "avoid_toggles": {
+    "fragrance": ["fragrance", "parfum"],
+    "alcohol_denat": ["alcohol denat", "denatured alcohol"],
+    "essential_oils": ["essential oil", "lavender", "citrus", "peppermint", "eucalyptus"]
+  },
+  "skin_type_boost": {
+    "oily": ["salicylic acid", "betaine salicylate", "niacinamide", "zinc pca", "clay", "kaolin"],
+    "dry": ["glycerin", "hyaluronic acid", "sodium hyaluronate", "ceramide", "squalane", "panthenol", "shea butter"],
+    "sensitive": ["centella", "madecassoside", "panthenol", "allantoin", "ceramide"],
+    "combination": ["niacinamide", "glycerin", "panthenol"],
+    "normal": ["glycerin", "niacinamide", "panthenol"]
+  }
+}

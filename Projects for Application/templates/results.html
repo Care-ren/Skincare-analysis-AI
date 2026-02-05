@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resultat</title>
+  <style>
+    body { font-family: system-ui, Arial; max-width: 960px; margin: 40px auto; padding: 0 16px; background:#fafafa; }
+    .muted { color:#555; }
+    .card { background:#fff; border: 1px solid #e6e6e6; border-radius: 16px; padding: 18px; margin: 14px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .tag { display:inline-block; border:1px solid #e6e6e6; border-radius:999px; padding: 6px 10px; margin: 6px 8px 0 0; background:#fff; }
+    .step { display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+    .title { font-weight:700; }
+    .btn { display:inline-block; padding: 10px 12px; background:#111; color:#fff; border-radius: 12px; text-decoration:none; font-weight:600; }
+    .btn:hover { opacity:0.92; }
+    ul { margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <h1>Din rutine</h1>
+  <div class="muted">
+    Hudtype: <b>{{ skin_type }}</b> |
+    Concerns: <b>{{ concerns|join(", ") if concerns else "—" }}</b> |
+    Avoid: <b>{{ avoid|join(", ") if avoid else "—" }}</b>
+  </div>
+
+  <div class="card">
+    <div class="title">✅ Ingredienser å se etter</div>
+    {% if data.recommended_ingredients %}
+      {% for ing in data.recommended_ingredients %}
+        <span class="tag">{{ ing }}</span>
+      {% endfor %}
+    {% else %}
+      <div class="muted">(ingen)</div>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <div class="title">⛔ Ingredienser å unngå</div>
+    {% if data.avoid_ingredients %}
+      {% for ing in data.avoid_ingredients %}
+        <span class="tag">{{ ing }}</span>
+      {% endfor %}
+    {% else %}
+      <div class="muted">(ingen)</div>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <div class="title">🧴 Rutine (1 produkt per steg)</div>
+    <div class="muted" style="margin-top:6px;">Hvis et steg står tomt: legg til flere produkter i den typen i datasettet (eller gi produktene tydeligere navn/description).</div>
+
+    {% for step_label, step_key in [
+      ("Oil cleanser", "oil_cleanser"),
+      ("Foam cleanser", "foam_cleanser"),
+      ("Toner", "toner"),
+      ("Essence", "essence"),
+      ("Serum", "serum"),
+      ("Moisturizer", "moisturizer"),
+      ("Sunscreen", "sunscreen"),
+      ("Toner pads", "toner_pads")
+    ] %}
+      <div class="card" style="margin: 12px 0;">
+        <div class="step">
+          <div>
+            <div class="title">{{ step_label }}</div>
+            {% set item = data.routine[step_key] %}
+            {% if item %}
+              {% set score = item[0] %}
+              {% set row = item[1] %}
+              {% set details = item[2] %}
+              {% set rec_count = details["matched_recommended"]|length %}
+              {% set avoid_count = details["matched_avoid"]|length %}
+
+              <div style="margin-top:8px;">
+                <div><b>{{ row["brand"] }}</b> — {{ row["name"] }}</div>
+                <div class="muted">Kategori: {{ row["category"] }} | Score: {{ score }} | Skin types: {{ row["skin_type"] }}</div>
+                <div class="muted">
+                  Hvorfor: {{ rec_count }} treff på anbefalte (+2 hver), {{ avoid_count }} treff på unngå (-3 hver){% if details["skin_match"] %}, hudtype-match (+2){% endif %}
+                </div>
+
+                <div style="margin-top:10px;">
+                  {% if details["skin_match"] %}<span class="tag">Hudtype-match</span>{% endif %}
+                  {% for m in details["matched_recommended"][:6] %}<span class="tag">+ {{ m }}</span>{% endfor %}
+                  {% for m in details["matched_avoid"][:4] %}<span class="tag">- {{ m }}</span>{% endfor %}
+                </div>
+              </div>
+            {% else %}
+              <div class="muted" style="margin-top:8px;">Fant ikke et godt match i databasen ennå.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if data.notes %}
+  <div class="card">
+    <div class="title">📝 Notater</div>
+    <ul>
+      {% for n in data.notes %}
+        <li>{{ n }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <div class="title">🔎 Hvordan vi rangerer produkter</div>
+    <div class="muted" style="margin-top:6px;">
+      Vi gir poeng for ingredienser som matcher dine concerns (+2 per treff), trekker fra for ingredienser du vil unngå (-3 per treff),
+      og gir et lite løft hvis produktet er merket for hudtypen din (+2).
+    </div>
+  </div>
+
+  <a class="btn" href="/">← Tilbake</a>
+</body>
+</html>

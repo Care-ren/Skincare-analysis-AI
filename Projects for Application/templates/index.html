@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skincare Routine Builder</title>
+  <style>
+    body { font-family: system-ui, Arial; max-width: 960px; margin: 40px auto; padding: 0 16px; background:#fafafa; }
+    h1 { margin: 0 0 8px; }
+    .muted { color:#555; }
+    .card { background:#fff; border: 1px solid #e6e6e6; border-radius: 16px; padding: 18px; margin: 14px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .row { display:flex; gap: 10px; flex-wrap: wrap; }
+    .pill { border:1px solid #e6e6e6; border-radius: 999px; padding: 10px 12px; display:flex; gap: 10px; align-items:center; background:#fff; }
+    .grid { display:grid; gap: 10px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    button { border:0; border-radius: 12px; padding: 12px 16px; background:#111; color:#fff; cursor:pointer; font-weight:600; }
+    button:hover { opacity:0.92; }
+    small { display:block; margin-top: 6px; color:#666; }
+  </style>
+</head>
+<body>
+  <h1>Skincare Routine Builder</h1>
+  <div class="muted">Klikk på bokser → få en foreslått rutine (ikke medisinsk rådgivning).</div>
+
+  <form method="POST" action="/result">
+    <div class="card">
+      <h3>Hudtype</h3>
+      <div class="row">
+        <label class="pill"><input type="radio" name="skin_type" value="dry" required> Dry</label>
+        <label class="pill"><input type="radio" name="skin_type" value="oily"> Oily</label>
+        <label class="pill"><input type="radio" name="skin_type" value="combination"> Combination</label>
+        <label class="pill"><input type="radio" name="skin_type" value="normal"> Normal</label>
+        <label class="pill"><input type="radio" name="skin_type" value="sensitive"> Sensitive</label>
+      </div>
+      <small>Tips: Velg “sensitive” hvis du lett blir rød eller reagerer på produkter.</small>
+    </div>
+
+    <div class="card">
+      <h3>Plager / concerns</h3>
+      <div class="grid">
+        <label class="pill"><input type="checkbox" name="concerns" value="acne"> Akne / utbrudd</label>
+        <label class="pill"><input type="checkbox" name="concerns" value="clogged_pores"> Tette porer / blackheads</label>
+        <label class="pill"><input type="checkbox" name="concerns" value="dryness"> Tørrhet</label>
+        <label class="pill"><input type="checkbox" name="concerns" value="redness_sensitivity"> Rødhet / sensitivitet</label>
+        <label class="pill"><input type="checkbox" name="concerns" value="hyperpigmentation"> Pigment / ujevn tone</label>
+        <label class="pill"><input type="checkbox" name="concerns" value="texture"> Tekstur / ru hud</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Unngå</h3>
+      <div class="grid">
+        <label class="pill"><input type="checkbox" name="avoid" value="fragrance"> Parfyme</label>
+        <label class="pill"><input type="checkbox" name="avoid" value="alcohol_denat"> Alcohol denat</label>
+        <label class="pill"><input type="checkbox" name="avoid" value="essential_oils"> Essensielle oljer</label>
+      </div>
+    </div>
+
+    <button type="submit">Lag rutine</button>
+    <small>Resultatet bygger på ingrediens-match + hudtype-match i datasettet ditt.</small>
+  </form>
+</body>
+</html>
